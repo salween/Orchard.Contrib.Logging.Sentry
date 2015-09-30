@@ -1,0 +1,11 @@
+﻿Name: Contrib.Logging.Sentry
+AntiForgery: enabled
+Author: Maxime Rossini
+Website: https://github.com/madmox/Contrib.Logging.Sentry
+Version: 1.0.0
+OrchardVersion: 1.8.1
+Description: Enables Sentry logging
+Features:
+    Contrib.Logging.Sentry:
+        Category: Logging
+        Description: Enables Sentry logging via a custom NLog appender and configuration in the tenant admin.

@@ -1,0 +1,42 @@
+﻿@model Contrib.Logging.Sentry.ViewModels.SentryConfigurationViewModel
+@using (Html.BeginFormAntiForgeryPost(Url.Action("Settings", "Admin", new { Area = "Contrib.Logging.Sentry" }), FormMethod.Post))
+{
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>@T("Sentry Logging Settings")</legend>
+        <span class="hint">
+            @T("Any change in the configuration might take up to 1 minute to propagate.")
+        </span>
+        <div>
+            @Html.LabelFor(m => m.DSN, @T("Sentry DSN").Text, new { })
+            @Html.TextBoxFor(m => m.DSN, new { @class = "text large", placeholder = "{PROTOCOL}://{PUBLIC_KEY}:{SECRET_KEY}@{HOST}/{PATH}{PROJECT_ID}" })
+            <span class="hint">
+                @T("The Sentry Data Source Name, as specified in the <a href=\"{0}\">Sentry documentation</a>. Leave empty to disable Sentry on this tenant!", "https://docs.getsentry.com/hosted/quickstart/#configure-the-dsn")
+            </span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.LevelMin, @T("Minimum Log Level").Text, new { @class = "forcheckbox" })
+            @Html.DropDownListFor(m => m.LevelMin, Model.LogLevels.Select(x => new SelectListItem() { Value = ((int)x).ToString(), Text = x.ToString() }))
+            <span class="hint">
+                @T("The minimum level required for an event to be logged.")
+            </span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Layout, @T("Pattern Layout").Text, new { })
+            @Html.TextBoxFor(m => m.Layout, new { @class = "text large", placeholder = "e.g.: %date [%thread] %logger - %P{Tenant} - %message%newline %P{Url}" })
+            <span class="hint">
+                @T("A pattern layout to use to format messages before they are sent. Leave empty to use the default layout. See <a href=\"{0}\">the log4net documentation</a> for exemples.", "https://logging.apache.org/log4net/release/sdk/log4net.Layout.PatternLayout.html")
+            </span>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Tags, @T("Tags").Text, new { })
+            @Html.TextAreaFor(m => m.Tags, new { @class = "text medium", placeholder = T("A list of tags, separated by a new line").Text, rows = "5" })
+            <span class="hint">
+                @T("These tag keys will be searched in each log event properties and sent to sentry as tags (searchable). Other log event properties will be sent as extras (not searchable).")
+            </span>
+        </div>
+    </fieldset>
+
+    <button class="primaryAction" type="submit">@T("Save")</button>
+}

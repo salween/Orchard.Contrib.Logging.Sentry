@@ -1,0 +1,67 @@
+msgctxt "Contrib.Logging.Sentry.Navigation.AdminMenu"
+msgid "Sentry Logging"
+msgstr "Sentry Logging"
+
+msgctxt "Contrib.Logging.Sentry.Controllers.AdminController"
+msgid "Could not save Settings."
+msgstr "Could not save Settings."
+
+msgctxt "Contrib.Logging.Sentry.Controllers.AdminController"
+msgid "Settings saved successfully."
+msgstr "Settings saved successfully."
+
+msgctxt "Contrib.Logging.Sentry.Controllers.AdminController"
+msgid "The DSN must be a valid URL"
+msgstr "The DSN must be a valid URL"
+
+msgctxt "Contrib.Logging.Sentry.Controllers.AdminController"
+msgid "The DSN is invalid"
+msgstr "The DSN is invalid"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Sentry Logging Settings"
+msgstr "Sentry Logging Settings"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Any change in the configuration might take up to 1 minute to propagate."
+msgstr "Any change in the configuration might take up to 1 minute to propagate."
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Sentry DSN"
+msgstr "Sentry DSN"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "The Sentry Data Source Name, as specified in the <a href=\"{0}\">Sentry documentation</a>. Leave empty to disable Sentry on this tenant!"
+msgstr "The Sentry Data Source Name, as specified in the <a href=\"{0}\">Sentry documentation</a>. Leave empty to disable Sentry on this tenant!"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Minimum Log Level"
+msgstr "Minimum Log Level"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "The minimum level required for an event to be logged."
+msgstr "The minimum level required for an event to be logged."
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Pattern Layout"
+msgstr "Pattern Layout"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "A pattern layout to use to format messages before they are sent. Leave empty to use the default layout. See <a href=\"{0}\">the log4net documentation</a> for exemples."
+msgstr "A pattern layout to use to format messages before they are sent. Leave empty to use the default layout. See <a href=\"{0}\">the log4net documentation</a> for exemples."
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "A list of tags, separated by a new line"
+msgstr "A list of tags, separated by a new line"
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "These tag keys will be searched in each log event properties and sent to sentry as tags (searchable). Other log event properties will be sent as extras (not searchable)."
+msgstr "These tag keys will be searched in each log event properties and sent to sentry as tags (searchable). Other log event properties will be sent as extras (not searchable)."
+
+msgctxt "~/Modules/Contrib.Logging.Sentry/Views/Settings.cshtml"
+msgid "Save"
+msgstr "Save"

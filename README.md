@@ -16,7 +16,19 @@ You have many options to install this module:
 Once the package is installed, you need to activate the Contrib.Logging.Sentry feature from the admin menu.
 
 ## Configuration
-Now that the feature is activated, you have a new navigation node under "Settings -> Sentry logging". Click on that link. You can now configure your Sentry settings from there, and save once you are done. If anything is misconfigured, you will be displayed a warning on the admin page after you hit the save button and the page reloads.
+Now that the feature is activated, you have a new navigation node called "Sentry Logging". Click on that link. You can now configure your Sentry settings from there, and save them once you are done.
 
 ##### Sentry DSN (Data Source Name)
-The Data Source Name of your Sentry project. See the documentation on the Sentry [project site](https://docs.getsentry.com/hosted/quickstart/#configure-the-dsn).
+The Data Source Name of your Sentry project. See the documentation on the Sentry [project site](https://docs.getsentry.com/hosted/quickstart/#configure-the-dsn). Leave this field empty to disable Sentry logging for this tenant.
+
+##### Tags
+A list of tag keys (one per line) that will be sent to Sentry as [tags](https://docs.getsentry.com/hosted/learn/context/).
+The tag value will be extracted from the log4net log event properties, if provided. The instance emitting the log event is responsible for setting the property with the appropriate key.
+Any log event property that is not sent as a tag will be sent as a log extra.
+Note that only log event properties will be processed this way, not thread or global properties, so you might want to add tenant/request information into this also.
+
+##### LevelMin
+This is the minimum level that a log event must match in order to be processed by the Sentry appender. Anything strictly below that will be ignored by the log appender.
+
+##### Layout
+A custom pattern layout, as defined by the [log4net documentation](https://logging.apache.org/log4net/release/sdk/log4net.Layout.PatternLayout.html). Leave empty to send the raw information.

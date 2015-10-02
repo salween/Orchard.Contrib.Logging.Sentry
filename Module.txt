@@ -9,3 +9,4 @@ Features:
     Contrib.Logging.Sentry:
         Category: Logging
         Description: Enables Sentry logging via a custom NLog appender and configuration in the tenant admin.
+        Dependencies: Orchard.Caching

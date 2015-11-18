@@ -57,7 +57,7 @@ namespace Contrib.Logging.Sentry.Models
 
         public SentryConfiguration(SentryConfigurationPart part)
         {
-            this.DSN = part.DSN;
+            this.DSN = !string.IsNullOrEmpty(part.DSN) ? new Uri(part.DSN, UriKind.Absolute) : null;
             this.Tags = part.Tags;
             this.DateUpdated = part.DateUpdated;
             switch (part.LevelMin)

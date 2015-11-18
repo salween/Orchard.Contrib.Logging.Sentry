@@ -49,7 +49,7 @@ namespace Contrib.Logging.Sentry.ViewModels
 
         public SentryConfigurationViewModel(SentryConfigurationPart part)
         {
-            this.DSN = part.DSN != null ? part.DSN.OriginalString : null;
+            this.DSN = part.DSN;
             this.Tags = part.Tags != null ? string.Join(Environment.NewLine, part.Tags) : "";
             this.LevelMin = part.LevelMin;
             this.Layout = part.Layout;
@@ -65,7 +65,7 @@ namespace Contrib.Logging.Sentry.ViewModels
         /// <param name="part">The content part to update</param>
         public void UpdateContentPart(SentryConfigurationPart part)
         {
-            part.DSN = !string.IsNullOrEmpty(this.DSN) ? new Uri(this.DSN, UriKind.Absolute) : null;
+            part.DSN = this.DSN;
             part.Tags = this.ParseTags(this.Tags);
             part.LevelMin = this.LevelMin;
             part.Layout = this.Layout;

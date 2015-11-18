@@ -10,7 +10,7 @@ namespace Contrib.Logging.Sentry.Models
         /// <summary>
         /// Get or set the Sentry DSN
         /// </summary>
-        public Uri DSN
+        public string DSN
         {
             get { return this.Retrieve(x => x.DSN); }
             set { this.Store(x => x.DSN, value); }

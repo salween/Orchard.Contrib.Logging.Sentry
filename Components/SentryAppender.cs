@@ -50,13 +50,13 @@ namespace Contrib.Logging.Sentry.Components
             this.AddFilter(new TenantFilter(tenant));
 
             // Error level filter
-            if (config.LevelMin == Level.Off)
+            if (config.Log4netLevelMin == Level.Off)
             {
                 this.AddFilter(new DenyAllFilter());
             }
-            else if (config.LevelMin != Level.All)
+            else if (config.Log4netLevelMin != Level.All)
             {
-                this.AddFilter(new LevelRangeFilter() { LevelMin = config.LevelMin, LevelMax = Level.Off });
+                this.AddFilter(new LevelRangeFilter() { LevelMin = config.Log4netLevelMin, LevelMax = Level.Off });
             }
 
             // Layout is created only if a pattern is defined

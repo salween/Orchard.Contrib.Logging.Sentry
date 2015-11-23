@@ -25,9 +25,36 @@ namespace Contrib.Logging.Sentry.Models
         public DateTime DateUpdated { get; set; }
 
         /// <summary>
-        /// The minimum log4net event level to match for the event to be sent to sentry
+        /// The minimum log level to match for the event to be sent to sentry
         /// </summary>
-        public Level LevelMin { get; set; }
+        public LogLevel LevelMin { get; set; }
+
+        /// <summary>
+        /// A mapper between this class's min log level and a log4net event level
+        /// </summary>
+        public Level Log4netLevelMin
+        {
+            get
+            {
+                switch (this.LevelMin)
+                {
+                    case LogLevel.All:
+                        return Level.All;
+                    case LogLevel.Debug:
+                        return Level.Debug;
+                    case LogLevel.Info:
+                        return Level.Info;
+                    case LogLevel.Warning:
+                        return Level.Warn;
+                    case LogLevel.Error:
+                        return Level.Error;
+                    case LogLevel.Fatal:
+                        return Level.Fatal;
+                    default:
+                        return Level.Off;
+                }
+            }
+        }
 
         /// <summary>
         /// Get or set the pattern layout used by log4net to format the message before
@@ -60,30 +87,7 @@ namespace Contrib.Logging.Sentry.Models
             this.DSN = !string.IsNullOrEmpty(part.DSN) ? new Uri(part.DSN, UriKind.Absolute) : null;
             this.Tags = part.Tags;
             this.DateUpdated = part.DateUpdated;
-            switch (part.LevelMin)
-            {
-                case LogLevel.All:
-                    this.LevelMin = Level.All;
-                    break;
-                case LogLevel.Debug:
-                    this.LevelMin = Level.Debug;
-                    break;
-                case LogLevel.Info:
-                    this.LevelMin = Level.Info;
-                    break;
-                case LogLevel.Warning:
-                    this.LevelMin = Level.Warn;
-                    break;
-                case LogLevel.Error:
-                    this.LevelMin = Level.Error;
-                    break;
-                case LogLevel.Fatal:
-                    this.LevelMin = Level.Fatal;
-                    break;
-                default:
-                    this.LevelMin = Level.Off;
-                    break;
-            }
+            this.LevelMin = part.LevelMin;
             this.Layout = part.Layout;
         }
 

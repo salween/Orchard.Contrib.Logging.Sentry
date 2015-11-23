@@ -1,4 +1,5 @@
 ﻿using log4net.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -32,6 +33,7 @@ namespace Contrib.Logging.Sentry.Models
         /// <summary>
         /// A mapper between this class's min log level and a log4net event level
         /// </summary>
+        [JsonIgnore]
         public Level Log4netLevelMin
         {
             get

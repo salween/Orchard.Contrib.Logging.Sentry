@@ -74,59 +74,55 @@ namespace Contrib.Logging.Sentry.Components
         {
             try
             {
-                // Tags are searchable contextual data used to sort and filter events in sentry
-                var tags = new Dictionary<string, string>();
-                if (this._tags != null)
-                {
-                    foreach (string tagKey in this._tags)
-                    {
-                        if (loggingEvent.Properties.Contains(tagKey))
-                        {
-                            tags[tagKey] = loggingEvent.Properties[tagKey] as string;
-                        }
-                    }
-                }
-
-                // Extra data (everything in the log event properties except tags)
-                var extras = new Dictionary<string, object>();
-                foreach (string propertyKey in loggingEvent.Properties.GetKeys().Where(x => !tags.ContainsKey(x)))
-                {
-                    extras[propertyKey] = loggingEvent.Properties[propertyKey];
-                }
-
                 // As the sentry client is a shared instance and its logger name must match the
                 // logging event, setting the name and sending the message must be an atomic operation
                 lock (this._lock)
                 {
-                    this._client.Logger = loggingEvent.LoggerName;
+                    // Build Sentry logging event
+                    SentryEvent @event;
                     var sentryMessage = new SentryMessage(loggingEvent.RenderedMessage);
-
-                    // If an exception is provided, use Sentry's CaptureException instead of
-                    // CaptureMessage method
                     if (loggingEvent.ExceptionObject != null)
                     {
-                        this._client.CaptureException(
-                            exception: loggingEvent.ExceptionObject,
-                            message: sentryMessage,
-                            level: this.MapLogLevel(loggingEvent.Level),
-                            tags: tags,
-                            extra: extras
-                        );
+                        @event = new SentryEvent(loggingEvent.ExceptionObject)
+                        {
+                            Message = sentryMessage,
+                            Level = this.MapLogLevel(loggingEvent.Level)
+                        };
                     }
                     else
                     {
-                        this._client.CaptureMessage(
-                            message: sentryMessage,
-                            level: this.MapLogLevel(loggingEvent.Level),
-                            tags: tags,
-                            extra: extras
-                        );
+                        @event = new SentryEvent(sentryMessage)
+                        {
+                            Level = this.MapLogLevel(loggingEvent.Level)
+                        };
                     }
+
+                    // Tags are searchable contextual data used to sort and filter events in sentry
+                    if (this._tags != null)
+                    {
+                        foreach (string tagKey in this._tags)
+                        {
+                            if (loggingEvent.Properties.Contains(tagKey))
+                            {
+                                @event.Tags[tagKey] = loggingEvent.Properties[tagKey] as string;
+                            }
+                        }
+                    }
+
+                    // Extra data (everything in the log event properties except tags)
+                    var extras = new Dictionary<string, object>();
+                    foreach (string propertyKey in loggingEvent.Properties.GetKeys().Where(x => !@event.Tags.ContainsKey(x)))
+                    {
+                        extras[propertyKey] = loggingEvent.Properties[propertyKey];
+                    }
+
+                    this._client.Logger = loggingEvent.LoggerName;
+                    this._client.Capture(@event);
                 }
             }
             catch (Exception)
             {
-                // Silently fail (not so easy to log failed log attempts!)
+                // Silently fail (not so easy to log failed logging attempts!)
             }
         }
 
